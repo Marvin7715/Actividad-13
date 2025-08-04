@@ -48,6 +48,36 @@ def agregar_curso():
     except Exception as e:
         print("Error al agregar curso:", e)
 
+def consultar_estudiante():
+    id_estudiante = input("Ingrese el ID del estudiante: ").strip()
+    if id_estudiante not in estudiantes:
+        print("Estudiante no encontrado.")
+        return
+
+    datos = estudiantes[id_estudiante]
+    print("Nombre:", datos["nombre"])
+    print("Carrera:", datos["carrera"])
+    print("Cursos:")
+    if datos["cursos"]:
+        for curso, nota in datos["cursos"].items():
+            print(f" - {curso}: {nota}")
+    else:
+        print("No tiene cursos registrados.")
+
+def calcular_promedio():
+    id_estudiante = input("Ingrese el ID del estudiante: ").strip()
+    if id_estudiante not in estudiantes:
+        print("Estudiante no encontrado.")
+        return
+
+    cursos = estudiantes[id_estudiante]["cursos"]
+    if not cursos:
+        print("El estudiante no tiene cursos registrados.")
+        return
+
+    promedio = sum(cursos.values()) / len(cursos)
+    print(f"Promedio del estudiante: {promedio:.2f}")
+
 def salir_del_programa():
     print("Saliendo del programa...")
 
