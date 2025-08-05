@@ -78,6 +78,39 @@ def calcular_promedio():
     promedio = sum(cursos.values()) / len(cursos)
     print(f"Promedio del estudiante: {promedio:.2f}")
 
+def verificar_aprobacion():
+    id_estudiante = input("Ingrese el ID del estudiante: ").strip()
+    if id_estudiante not in estudiantes:
+        print("Estudiante no encontrado.")
+        return
+
+    cursos = estudiantes[id_estudiante]["cursos"]
+    if not cursos:
+        print("No hay cursos registrados para este estudiante.")
+        return
+
+    todas_aprobadas = all(nota >= 61 for nota in cursos.values())
+    if todas_aprobadas:
+        print("El estudiante aprueba todos los cursos.")
+    else:
+        print("El estudiante NO aprueba todos los cursos.")
+
+def mostrar_todos():
+    if not estudiantes:
+        print("No hay estudiantes registrados.")
+        return
+
+    for id_est, datos in estudiantes.items():
+        print("\nID:", id_est)
+        print("Nombre:", datos["nombre"])
+        print("Carrera:", datos["carrera"])
+        print("Cursos:")
+        if datos["cursos"]:
+            for curso, nota in datos["cursos"].items():
+                print(f" - {curso}: {nota}")
+        else:
+            print("Sin cursos.")
+
 def salir_del_programa():
     print("Saliendo del programa...")
 
